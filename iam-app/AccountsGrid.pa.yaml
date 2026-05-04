@@ -1,0 +1,161 @@
+Screens:
+  AccountsGrid:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - RootContainer:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(245, 245, 247, 1)
+            Height: =Parent.Height
+            Width: =Parent.Width
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =16
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            PaddingTop: =16
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+          Children:
+            - HeaderContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =60
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  BorderThickness: =1
+                  BorderColor: =RGBA(200, 200, 200, 1)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                Children:
+                  - PageTitle:
+                      Control: Text
+                      Properties:
+                        Text: ="Accounts"
+                        Size: =24
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(51, 51, 51, 1)
+
+                  - BackButton:
+                      Control: Button
+                      Properties:
+                        Text: ="← Back to Dashboard"
+                        Fill: =RGBA(158, 158, 158, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Navigate(Dashboard)
+
+            - FilterToolbar:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =50
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  BorderThickness: =1
+                  BorderColor: =RGBA(200, 200, 200, 1)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                Children:
+                  - SearchInput:
+                      Control: TextInput
+                      Properties:
+                        Placeholder: ="Search accounts..."
+                        Fill: =RGBA(245, 245, 247, 1)
+                        BorderColor: =RGBA(200, 200, 200, 1)
+                        BorderThickness: =1
+                        RadiusTopLeft: =4
+                        RadiusTopRight: =4
+                        RadiusBottomLeft: =4
+                        RadiusBottomRight: =4
+                        FillPortions: =1
+                        Height: =36
+
+                  - StatusFilter:
+                      Control: ComboBox
+                      Properties:
+                        Items: =[{Value: "All", Display: "All Status"}, {Value: "Active", Display: "Active"}, {Value: "Inactive", Display: "Inactive"}, {Value: "Suspended", Display: "Suspended"}]
+                        Default: ="All"
+                        Fill: =RGBA(245, 245, 247, 1)
+                        BorderColor: =RGBA(200, 200, 200, 1)
+                        FillPortions: =0
+                        Width: =150
+                        Height: =36
+
+            - DataGridSection:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
+                  Height: =400
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  BorderThickness: =1
+                  BorderColor: =RGBA(200, 200, 200, 1)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                Children:
+                  - AccountsDataGrid:
+                      Control: DataGrid
+                      Properties:
+                        Items: =[{ID: "A001", Name: "Contoso Inc", Status: "Active", Owner: "admin@contoso.com", Created: "2023-06-01", AccessLevel: "Enterprise"}, {ID: "A002", Name: "Fabrikam Corp", Status: "Active", Owner: "admin@contoso.com", Created: "2023-08-15", AccessLevel: "Professional"}, {ID: "A003", Name: "Northwind Traders", Status: "Inactive", Owner: "admin@contoso.com", Created: "2023-04-10", AccessLevel: "Standard"}, {ID: "A004", Name: "Adventure Works", Status: "Active", Owner: "admin@contoso.com", Created: "2024-01-20", AccessLevel: "Professional"}, {ID: "A005", Name: "Wide World Importers", Status: "Suspended", Owner: "admin@contoso.com", Created: "2023-12-05", AccessLevel: "Standard"}]
+                        BorderThickness: =0
+                        HeadingColor: =RGBA(255, 255, 255, 1)
+                        HeadingFill: =RGBA(34, 177, 76, 1)
+                        HeadingSize: =14
+                        HeadingFontWeight: =FontWeight.Bold
+                        Color: =RGBA(51, 51, 51, 1)
+                        Size: =12
+
+            - ActionButtonBar:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =Transparent
+                  FillPortions: =0
+                  Height: =50
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                Children:
+                  - ViewDetailsButton:
+                      Control: Button
+                      Properties:
+                        Text: ="View Details"
+                        Fill: =RGBA(34, 177, 76, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        BorderRadius: =4
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Navigate(EntityDetails)
+
+                  - CreateAccountButton:
+                      Control: Button
+                      Properties:
+                        Text: ="Create New Account"
+                        Fill: =RGBA(26, 118, 188, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        BorderRadius: =4
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Navigate(CreateEntity)

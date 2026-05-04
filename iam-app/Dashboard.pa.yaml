@@ -1,0 +1,214 @@
+Screens:
+  Dashboard:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - RootContainer:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(245, 245, 247, 1)
+            Height: =Parent.Height
+            Width: =Parent.Width
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =24
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            PaddingTop: =24
+            PaddingBottom: =24
+            PaddingLeft: =24
+            PaddingRight: =24
+          Children:
+            - HeaderContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =80
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  BorderThickness: =1
+                  BorderColor: =RGBA(200, 200, 200, 1)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  PaddingTop: =16
+                  PaddingBottom: =16
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                Children:
+                  - PageTitle:
+                      Control: Text
+                      Properties:
+                        Text: ="IAM Security Dashboard"
+                        Size: =28
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(51, 51, 51, 1)
+                        Wrap: =false
+
+            - StatsSection:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =120
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =16
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceEvenly
+                Children:
+                  - TotalEntitiesCard:
+                      Control: Card
+                      Properties:
+                        Title: ="Total Entities"
+                        Subtitle: ="450"
+                        Fill: =RGBA(34, 177, 76, 0.1)
+                        DropShadow: =DropShadow.Semilight
+                        BorderRadius: =8
+                        OnSelect: =Navigate(EntityGrid)
+
+                  - ActiveCountCard:
+                      Control: Card
+                      Properties:
+                        Title: ="Active"
+                        Subtitle: ="388"
+                        Fill: =RGBA(34, 177, 76, 1)
+                        DropShadow: =DropShadow.Semilight
+                        BorderRadius: =8
+                        OnSelect: =Navigate(EntityGrid)
+
+                  - InactiveCountCard:
+                      Control: Card
+                      Properties:
+                        Title: ="Inactive"
+                        Subtitle: ="45"
+                        Fill: =RGBA(158, 158, 158, 0.1)
+                        DropShadow: =DropShadow.Semilight
+                        BorderRadius: =8
+                        OnSelect: =Navigate(EntityGrid)
+
+                  - SuspendedCountCard:
+                      Control: Card
+                      Properties:
+                        Title: ="Suspended"
+                        Subtitle: ="17"
+                        Fill: =RGBA(255, 193, 7, 0.1)
+                        DropShadow: =DropShadow.Semilight
+                        BorderRadius: =8
+                        OnSelect: =Navigate(EntityGrid)
+
+            - RecentEntitiesSection:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
+                  Height: =Auto
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =16
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  BorderThickness: =1
+                  BorderColor: =RGBA(200, 200, 200, 1)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  PaddingTop: =20
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                Children:
+                  - SectionTitle:
+                      Control: Text
+                      Properties:
+                        Text: ="Recently Modified Entities"
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(51, 51, 51, 1)
+                        Wrap: =false
+                        Height: =Auto
+
+                  - RecentEntitiesContainer:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(245, 245, 247, 1)
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =12
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                      Children:
+                        - RecentEntity1:
+                            Control: Card
+                            Properties:
+                              Title: ="Alice Johnson (User)"
+                              Subtitle: ="Modified: Today"
+                              Fill: =RGBA(255, 255, 255, 1)
+                              DropShadow: =DropShadow.Light
+                              BorderRadius: =4
+                              OnSelect: =Navigate(EntityDetails)
+
+                        - RecentEntity2:
+                            Control: Card
+                            Properties:
+                              Title: ="Contoso Inc (Account)"
+                              Subtitle: ="Modified: Yesterday"
+                              Fill: =RGBA(255, 255, 255, 1)
+                              DropShadow: =DropShadow.Light
+                              BorderRadius: =4
+                              OnSelect: =Navigate(EntityDetails)
+
+                        - RecentEntity3:
+                            Control: Card
+                            Properties:
+                              Title: ="John Smith (Contact)"
+                              Subtitle: ="Modified: 2 days ago"
+                              Fill: =RGBA(255, 255, 255, 1)
+                              DropShadow: =DropShadow.Light
+                              BorderRadius: =4
+                              OnSelect: =Navigate(EntityDetails)
+
+            - ActionButtonSection:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =Transparent
+                  FillPortions: =0
+                  Height: =50
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                Children:
+                  - ViewAllButton:
+                      Control: Button
+                      Properties:
+                        Text: ="View All Entities"
+                        Fill: =RGBA(34, 177, 76, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        BorderRadius: =4
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Navigate(EntityGrid)
+
+                  - CreateEntityButton:
+                      Control: Button
+                      Properties:
+                        Text: ="Create New Entity"
+                        Fill: =RGBA(26, 118, 188, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        BorderRadius: =4
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Navigate(CreateEntity)
+
+                  - RefreshButton:
+                      Control: Button
+                      Properties:
+                        Text: ="Refresh"
+                        Fill: =RGBA(158, 158, 158, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        BorderRadius: =4
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Refresh(entityCollection)

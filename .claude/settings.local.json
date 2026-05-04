@@ -1,0 +1,6 @@
+{
+  "enabledMcpjsonServers": [
+    "canvas-authoring"
+  ],
+  "enableAllProjectMcpServers": true
+}

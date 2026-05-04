@@ -1,0 +1,99 @@
+App:
+  Properties:
+    StartScreen: =Dashboard
+    OnStart: |-
+      =ClearCollect(
+        entityCollection,
+        Table(
+          {ID: "E001", Name: "Alice Johnson", Status: "Active", Owner: "admin@contoso.com", Created: Today() - 30, LastModified: Today() - 1, AccessLevel: "Administrative", Description: "Enterprise administrator with full system access"},
+          {ID: "E002", Name: "Bob Smith", Status: "Active", Owner: "admin@contoso.com", Created: Today() - 20, LastModified: Today() - 2, AccessLevel: "Advanced", Description: "Manager with elevated access for team administration"},
+          {ID: "E003", Name: "Carol Davis", Status: "Inactive", Owner: "admin@contoso.com", Created: Today() - 15, LastModified: Today() - 5, AccessLevel: "Standard", Description: "Standard user account - currently inactive"},
+          {ID: "E004", Name: "David Wilson", Status: "Active", Owner: "admin@contoso.com", Created: Today() - 10, LastModified: Today(), AccessLevel: "Basic", Description: "Basic user with read-only access to non-sensitive resources"},
+          {ID: "E005", Name: "Emma Martinez", Status: "Suspended", Owner: "admin@contoso.com", Created: Today() - 8, LastModified: Today() - 3, AccessLevel: "Standard", Description: "Account temporarily suspended pending compliance review"},
+          {ID: "E006", Name: "Frank Brown", Status: "Active", Owner: "admin@contoso.com", Created: Today() - 5, LastModified: Today() - 1, AccessLevel: "Advanced", Description: "Senior analyst with departmental administration rights"},
+          {ID: "E007", Name: "Grace Lee", Status: "Active", Owner: "admin@contoso.com", Created: Today() - 3, LastModified: Today() - 4, AccessLevel: "Standard", Description: "Standard user with project collaboration access"}
+        )
+      );
+      ClearCollect(
+        statusOptions,
+        Table(
+          {Value: "Active", Display: "Active"},
+          {Value: "Inactive", Display: "Inactive"},
+          {Value: "Suspended", Display: "Suspended"}
+        )
+      );
+      ClearCollect(
+        userCollection,
+        Table(
+          {ID: "U001", Name: "Admin Account", Email: "admin@contoso.com"},
+          {ID: "U002", Name: "Security Officer", Email: "security@contoso.com"},
+          {ID: "U003", Name: "Compliance Manager", Email: "compliance@contoso.com"}
+        )
+      );
+      ClearCollect(
+        auditLog,
+        Table(
+          {EntityID: "E001", Action: "Status changed to Active", Timestamp: Now() - 1, Actor: "admin@contoso.com"},
+          {EntityID: "E001", Action: "AccessLevel updated to Administrative", Timestamp: Now() - 2, Actor: "admin@contoso.com"},
+          {EntityID: "E002", Action: "Created new entity", Timestamp: Now() - 3, Actor: "admin@contoso.com"}
+        )
+      );
+      Set(currentScreen, "Dashboard");
+      Set(searchQuery, "");
+      Set(filterStatus, "All");
+      Set(selectedEntity, {ID: "", Name: "", Status: "", Owner: "", Created: Today(), LastModified: Today(), AccessLevel: "", Description: ""});
+      Set(isLoading, false)
+    Formulas: |-
+      =// Color Constants - Matrix Green Theme
+      AppBgColor = RGBA(245, 245, 247, 1);
+      ContentBgColor = RGBA(255, 255, 255, 1);
+      MatrixGreen = RGBA(34, 177, 76, 1);
+      MatrixGreenDark = RGBA(27, 142, 61, 1);
+      MatrixGreenLight = RGBA(76, 209, 118, 1);
+      MatrixGreenTransparent = RGBA(34, 177, 76, 0.2);
+      PrimaryBlue = RGBA(26, 118, 188, 1);
+      PrimaryBlueDark = RGBA(21, 96, 151, 1);
+      PrimaryBlueLight = RGBA(66, 165, 245, 1);
+      PrimaryBlueTransparent = RGBA(26, 118, 188, 0.2);
+      TextPrimary = RGBA(51, 51, 51, 1);
+      TextSecondary = RGBA(102, 102, 102, 1);
+      TextLight = RGBA(158, 158, 158, 1);
+      BorderColor = RGBA(200, 200, 200, 1);
+      BorderColorLight = RGBA(220, 220, 220, 1);
+      StatusActive = RGBA(34, 177, 76, 1);
+      StatusInactive = RGBA(158, 158, 158, 1);
+      StatusSuspended = RGBA(255, 193, 7, 1);
+      StatusError = RGBA(244, 67, 54, 1);
+      SuccessColor = RGBA(34, 177, 76, 1);
+      WarningColor = RGBA(255, 193, 7, 1);
+      ErrorColor = RGBA(244, 67, 54, 1);
+
+      // Helper Functions
+      GetStatusColor(status: Text): Color =
+        If(
+          status = "Active", StatusActive,
+          status = "Inactive", StatusInactive,
+          status = "Suspended", StatusSuspended,
+          TextLight
+        );
+
+      GetStatusTextColor(status: Text): Color =
+        If(
+          status = "Active", Color.White,
+          status = "Inactive", Color.White,
+          status = "Suspended", Color.Black,
+          Color.White
+        );
+
+      FormatDate(dateValue: Date): Text =
+        Text(dateValue, "mmm d, yyyy");
+
+      IsValidEmail(email: Text): Boolean =
+        email <> "" && Find("@", email) > 0;
+
+      TruncateText(text: Text, maxLength: Number): Text =
+        If(
+          Len(text) > maxLength,
+          Left(text, maxLength) & "...",
+          text
+        )
